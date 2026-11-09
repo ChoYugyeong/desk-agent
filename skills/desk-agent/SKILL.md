@@ -10,13 +10,18 @@ window messages, an embedded IE page's DOM, or accessibility (MSAA, UI Automatio
 real mouse and keyboard stay free. Never fall back to screen-coordinate tools (SendInput, pyautogui, computer use)
 for these apps.
 
-Interface: the `desk_*` MCP tools if connected, otherwise `C:\Dev\desk-agent\desk.cmd <command>`.
+Interface: the `desk_*` MCP tools if connected, otherwise `scripts\desk.cmd <command>` in this skill's folder
+(written as `desk` below). The first call installs the engine by itself into `%LOCALAPPDATA%\desk-agent\app`
+(download from GitHub, a Python venv with one package, about a minute; needs Python 3.10+). If it fails because
+Python is missing, tell the user: `winget install Python.Python.3.12`.
 In PowerShell write refs as `e12` or `'@e12'`; a bare `@e12` is PowerShell splatting.
 Snapshots, reads and shots can contain private or customer data. Keep them out of commits, public logs and uploads.
 
 ## Before the first action
 
 1. `desk doctor`: agent running and elevated, active profile, target app running, minimized windows.
+   If the agent is not running, ask the user to run `desk start --allow app.exe` (or `--profile NAME`;
+   `desk profiles` lists them). It shows one UAC prompt, so the user starts it, not you.
 2. `desk notes`: the profile's notes about this app (internal control names, layout, actions to avoid). Follow them.
 
 ## Workflow

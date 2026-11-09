@@ -8,14 +8,30 @@ MCP나 API가 없는 윈도우 exe를 AI가 **사용자 마우스와 화면을 �
 
 ## 설치
 
+Python 3.10 이상이 필요하다(없으면 `winget install Python.Python.3.12`).
+
+**한 줄 설치** (엔진을 `%LOCALAPPDATA%\desk-agent\app`에 받고, Claude Code 스킬까지 설치):
+
+```powershell
+irm https://raw.githubusercontent.com/ChoYugyeong/desk-agent/main/skills/desk-agent/scripts/bootstrap.ps1 | iex
+```
+
+**스킬만 받기**: 스킬 안의 `scripts\desk.cmd`가 처음 실행될 때 엔진을 알아서 받아 설치한다. 따로 설치할 것이 없다.
+
+```
+npx skills add https://github.com/ChoYugyeong/desk-agent --skill desk-agent
+```
+
+같은 명령을 다시 실행하면 코드만 새로 받는다. `.venv`와 `local\`(내 프로필)은 그대로 둔다.
+
+**레포를 직접 받아 쓸 때**:
+
 ```
 powershell -ExecutionPolicy Bypass -File install.ps1          # venv, 의존성(comtypes 하나), 자체 점검
 powershell -ExecutionPolicy Bypass -File install.ps1 -Test    # + 자동 테스트
-powershell -ExecutionPolicy Bypass -File install.ps1 -Skill   # + ~/.claude/skills에 스킬 복사
+powershell -ExecutionPolicy Bypass -File install.ps1 -Skill   # + ~/.claude/skills에 스킬 복사 (이 폴더를 가리키게)
 powershell -ExecutionPolicy Bypass -File install.ps1 -Mcp     # + Claude Code에 MCP 등록 (user 범위)
 ```
-
-Python 3.10 이상이 필요하다.
 
 ## 사용법
 
@@ -99,6 +115,7 @@ local/config.json           {"default_profile": "NAME"}: desk start의 기본 �
 
 ```
 claude mcp add desk -- <repo>\.venv\Scripts\python.exe <repo>\desk.py mcp
+claude mcp add desk -- cmd /c <스킬 폴더>\scripts\desk.cmd mcp      # 스킬만 받았을 때
 ```
 
 AI용 사용법은 [skills/desk-agent/SKILL.md](skills/desk-agent/SKILL.md)에 있다.

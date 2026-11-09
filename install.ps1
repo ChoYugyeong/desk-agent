@@ -31,11 +31,12 @@ if (-not (Test-Path $venvPy)) {
 & $venvPy -c "import deskagent.msaa, deskagent.uia, deskagent.agent; print('deskagent imports ok')"
 
 if ($Skill) {
+    # Copy the whole skill (SKILL.md + scripts\) and point its launcher at this folder.
     $dst = Join-Path $env:USERPROFILE '.claude\skills\desk-agent'
-    New-Item -ItemType Directory -Force $dst | Out-Null
-    $text = Get-Content -Raw -Encoding UTF8 (Join-Path $root 'skills\desk-agent\SKILL.md')
-    $text = $text.Replace('C:\Dev\desk-agent', $root)
-    [IO.File]::WriteAllText((Join-Path $dst 'SKILL.md'), $text, (New-Object Text.UTF8Encoding($false)))
+    New-Item -ItemType Directory -Force (Join-Path $dst 'scripts') | Out-Null
+    Copy-Item (Join-Path $root 'skills\desk-agent\SKILL.md') $dst -Force
+    Copy-Item (Join-Path $root 'skills\desk-agent\scripts\*') (Join-Path $dst 'scripts') -Force
+    [IO.File]::WriteAllText((Join-Path $dst 'scripts\home.txt'), $root, [Text.Encoding]::Default)  # ANSI: what cmd's set /p reads
     Write-Host "skill installed: $dst"
 }
 
