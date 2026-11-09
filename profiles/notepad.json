@@ -1,0 +1,6 @@
+{
+  "allow": ["notepad.exe"],
+  "confirm_labels": [],
+  "confirm_keys": [],
+  "notes": "notes/notepad.md"
+}

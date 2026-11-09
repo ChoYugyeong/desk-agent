@@ -1,0 +1,7 @@
+{
+  "_comment": "Actions whose target label contains one of confirm_labels (case-insensitive) are refused unless the command carries confirm. App-specific words go in the profile (profiles/*.json, local/profiles/*.json). Copy this file to %LOCALAPPDATA%\\desk-agent\\policy.json to override it per machine.",
+  "confirm_labels": ["발송", "전송", "삭제", "결제", "송금", "이체", "구매", "send", "delete", "submit", "pay", "transfer", "purchase", "publish"],
+  "confirm_keys": [],
+  "confirm_js": true,
+  "confirm_at_clicks": false
+}

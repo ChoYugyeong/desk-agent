@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+*.png
+# your own apps, company-specific profiles, notes and test captures
+local/
+tests/.tmp/
